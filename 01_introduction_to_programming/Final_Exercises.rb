@@ -96,15 +96,55 @@ contacts["Sally Johnson"][:phone] = contact_data[1][2]
 contacts["Joe Smith"][:email]
 contacts["Sally Johnson"][:phone]
 
+
 # 14: In exercise 12, we manually set the contacts hash values one by one. 
 # Now, programmatically loop or iterate over the contacts hash from exercise 12, 
 # and populate the associated data from the contact_data array. 
-# Hint: you will probably need to iterate over ([:email, :address, :phone]), and some helpful methods might be the Array shift and first methods.
-
+# Hint: you will probably need to iterate over ([:email, :address, :phone]),
+#  and some helpful methods might be the Array shift and first methods.
 # Note that this exercise is only concerned with dealing with 1 entry in the contacts hash, like this:
 contact_data = ["joe@email.com", "123 Main st.", "555-123-4567"]
 contacts = {"Joe Smith" => {}}
 # As a bonus, see if you can figure out how to make it work with multiple entries in the contacts hash.
+
+
+
+
+
+# 15: Use Ruby's Array method delete_if and String method start_with? to delete all of the words that begin with an "s" in the following array.
+ arr = ['snow', 'winter', 'ice', 'slippery', 'salted roads', 'white trees']
+# Then recreate the arr and get rid of all of the words that start with "s" or starts with "w".
+arr.delete_if {|a| a.start_with?("s") }
+arr.delete_if {|a| a.start_with?("s", "w") }
+
+
+# 16: Take the following array:
+
+a = ['white snow', 'winter wonderland', 'melting ice',
+     'slippery sidewalk', 'salted roads', 'white trees']
+# and turn it into a new array that consists of strings containing one word. 
+# (ex. ["white snow", etc...] → ["white", "snow", etc...]. 
+# Look into using Array's map and flatten methods, as well as String's split method.
+x = a.map do |i|
+  i.split(" ")
+  end
+  x.flatten
+
+
+# 17: What will the following program output?
+
+
+hash1 = {shoes: "nike", "hat" => "adidas", :hoodie => true}
+hash2 = {"hat" => "adidas", :shoes => "nike", hoodie: true}
+
+if hash1 == hash2
+  puts "These hashes are the same!"
+else
+  puts "These hashes are not the same!"
+end
+
+# Solution : "These hashes are not the same!"
+# So as order doesn't matter, corrected answer is : They are same!
 
 
 

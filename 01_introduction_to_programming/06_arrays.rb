@@ -79,7 +79,9 @@ end
 p arr
 p new_array
 
-
+person.each do |key, value|
+  puts "Bob's #{key} is #{value}"
+end
 
 
 

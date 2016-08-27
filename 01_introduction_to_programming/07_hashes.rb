@@ -61,7 +61,21 @@ words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
 # ["demo", "dome", "mode"]
 # ["neon", "none"]
 # (etc)
+result = {}
+  words.each do |word|
+    key = word.split('').sort.join
+    if result.has_key?(key)
+    result[key].push[word]
+    else
+    result[key] = [word]
+    end
+  end
 
+
+result.each do |k, v|
+  puts "-----"
+  p v
+end
 
 
 
@@ -72,6 +86,9 @@ words =  ['demo', 'none', 'tied', 'evil', 'dome', 'mode', 'live',
 # my_hash = {x: "some value"}
 # my_hash2 = {x => "some value"}
 # What's the difference between the two hashes that were created?
+
+# Solution: Symtax for the 'my_hash' is recent one which is for ruby version above 1.9 and the lower one is old one.
+# x is symbol in first and  in second its a variable
 
 
 
@@ -87,6 +104,8 @@ B. There is no method called keys for Array objects.
 C. keys is an Array object, but it hasn't been defined yet.
 
 D. There's an array of strings, and we're trying to get the string keys out of the array, but it doesn't exist.
+
+
 
 
 

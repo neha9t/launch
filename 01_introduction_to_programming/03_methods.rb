@@ -117,7 +117,7 @@ scream("Yippeee")
   # Solution : 
 
 # There is adeclared method called 'calculated_product' which takes 2 arguments 
-# for which the supplied arguments were found only 1 instead of 2 
+# efor which the supplied arguments were found only 1 instead of 2 
 
 
 
