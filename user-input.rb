@@ -40,7 +40,7 @@ loop do
 end
 puts 'something' if choice == 'y'
 
-# 04: Write a program that prints 'Launch School is the best!' repeatedly until a certain number of lines have been printed. 
+# 05: Write a program that prints 'Launch School is the best!' repeatedly until a certain number of lines have been printed. 
 # The program should obtain the number of lines from the user, and should insist that at least 3 lines are printed.
 
 # For now, just use #to_i to convert the input value to an Integer, and check that result instead of trying to insist on a valid number; 
@@ -55,7 +55,7 @@ answer = gets.chomp.to_i
     end
   end
 
-# 05: Write a program that displays a welcome message, but only after the user enters the correct password,
+# 06: Write a program that displays a welcome message, but only after the user enters the correct password,
 # where the password is a string that is defined as a constant in your program.
 # Keep asking for the password until the user enters the correct password.
 
@@ -71,7 +71,7 @@ end
 
 puts "Successfull"
 
-# 06: In the previous exercise, you wrote a program to solicit a password. 
+# 07: In the previous exercise, you wrote a program to solicit a password. 
 # In this exercise, you should modify the program so it also requires a user name.
 # The program should solicit both the user name and the password, then validate both, 
 # and issue a generic error message if one or both are incorrect;
@@ -98,7 +98,7 @@ end
 
 puts "Successfull"
 
-# 07: Write a program that obtains two Integers from the user, 
+# 08: Write a program that obtains two Integers from the user, 
 # then prints the results of dividing the first by the second.
 # The second number must not be 0, and both numbers should be validated using this method:
 
@@ -133,7 +133,7 @@ result = number1.to_i/number2.to_i
 puts result
 
 
-# 08: In an earlier exercise, you wrote a program that prints 'Launch School is the best!' repeatedly
+# 09: In an earlier exercise, you wrote a program that prints 'Launch School is the best!' repeatedly
 # until a certain number of lines have been printed. Our solution looked like this:
   #   number_of_lines = nil
   # loop do
@@ -164,7 +164,7 @@ end
 
 puts "Thank You"
 
-# 09: Write a program that requests two integers from the user, adds them together, and then displays the result.
+# 10: Write a program that requests two integers from the user, adds them together, and then displays the result.
 # Furthermore, insist that one of the integers be positive, and one negative;
 # however, the order in which the two integers are entered does not matter.
 # Do not check for positive/negative requirement until after both integers are entered,
@@ -175,21 +175,26 @@ puts "Thank You"
 first = nil
 second = nil
 
-loop do
-  puts "enter 2 integer one positive and other neagtive"
-  first = gets.chomp
-  second = gets.chomp
-  break if valid_number?(first) && valid_number?(second)
+def valid_number?(number_string)
+  number_string.to_i.to_s == number_string && number_string.to_i != 0
 end
 
-  result = first.to_i + second.to_i
-  puts result
-  
-  def valid_number?(number_string)
-    number_string.to_i.to_s == number_string && number_string.to_i != 0
+def read_number
+  loop do
+    puts '>> Please enter a positive or negative integer:'
+    number = gets.chomp
+    return number.to_i if valid_number?(number)
+    puts 'Invalid input'
   end
+end
+loop do
+  first= read_number
+  second = read_number
+  break if (first * second) <0
+  puts "please retry"  
+end  
 
-
+result = first + second
 
 
 
