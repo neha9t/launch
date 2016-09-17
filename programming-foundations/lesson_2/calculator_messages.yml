@@ -1,0 +1,14 @@
+
+en:
+  welcome : "Welcome to command-line simple calculator. Enter your Name:"
+  valid_name : "Please enter a valid name"
+  first_num : "Enter the first number"
+  second_num : "Enter the second number"
+  invalid_num : "That's an invalid number, Try Again!"
+  message_choice : "Please select from 1 2 3 or 4 choices"
+  user_input : " Do you want to do another calculation?(Y to start another one)"
+  thank_you : "Thank you for using simple calculator!"
+
+es:
+  welcome : "Bienvenido a la calculadora! Entre su nombre:"
+  valid_name: "Asegúrese de entrar un nombre válido."
