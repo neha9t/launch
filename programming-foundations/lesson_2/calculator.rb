@@ -4,13 +4,14 @@
 # asks for the type of operation to perform: add, subtract, multiply or divide
 # displays the result
 require 'yaml'
+require 'pry'
 
 LANGUAGE = 'en'
 MESSAGES = YAML.load_file('calculator_messages.yml')
 puts MESSAGES.inspect
 
-def messages(message, lang = 'en')
-  MESSAGES[lang][message]
+def messages(key, lang = 'en')
+  MESSAGES[lang][key]
 end
 
 def prompt(key)
@@ -40,13 +41,13 @@ def opertor_to_message(op)
   puts "Testing case statement"
   result
 end
-prompt(messages('welcome', 'es'))
+prompt('welcome')
 
 name = ''
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt(messages('valid_name'))
+    prompt('valid_name')
   else
     break
   end
@@ -57,25 +58,25 @@ prompt("Hi #{name} !!")
 loop do # main loop
   number1 = ''
   loop do
-    prompt(messages('first_num'))
+    prompt('first_num')
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt(messages('invalid_num'))
+      prompt('invalid_num')
     end
   end
 
   number2 = ''
   loop do
-    prompt(messages('second_num'))
+    prompt('second_num')
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt(messages('invalid_num'))
+      prompt('invalid_num')
     end
   end
   prompt_operator = <<-MSG
@@ -94,7 +95,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operation)
       break
     else
-      prompt(messages('message_choice'))
+      prompt('message_choice')
     end
   end
 
@@ -113,9 +114,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt(messages('user_input'))
+  prompt('user_input')
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
 
-prompt(messages('thank_you'))
+prompt('thank_you')
