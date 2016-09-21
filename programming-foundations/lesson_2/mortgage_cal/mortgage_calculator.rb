@@ -95,7 +95,7 @@ loop do
   monthly_rate = ''
   loop do
     annual_rate = Kernel.gets().chomp()
-    if valid_number?(annual_rate)
+    if valid_number?(annual_rate) && annual_rate > '0'
       monthly_rate = annual_rate.to_f / 1200
       break
     else
@@ -111,7 +111,7 @@ loop do
   loan_duration = ''
   loop do
     loan_duration_in_years = Kernel.gets().chomp()
-    if valid_number?(loan_duration_in_years)
+    if valid_number?(loan_duration_in_years) && loan_duration_in_years > '0'
       loan_duration = loan_duration_in_years.to_i * 12
       break
     else
