@@ -58,13 +58,21 @@ def integer?(input)
 end
 
 def monthly_payment(rate, amount, duration)
-  monthly_payment = amount.to_i * (rate / (1 - ((1 + rate)**-duration)))
+  monthly_payment = amount.to_f * (rate / (1 - ((1 + rate)**-duration)))
   prompt("The monthly payment came to : #{monthly_payment.round(2)} Bucks")
 end
 
 prompt(message('welcome'))
 
-customer_name = Kernel.gets().chomp()
+customer_name = ''
+loop do
+  customer_name = Kernel.gets().chomp()
+  if customer_name.empty?
+    prompt(message('ask_name'))
+  else
+    break
+  end
+end
 
 prompt("Hi #{customer_name}")
 

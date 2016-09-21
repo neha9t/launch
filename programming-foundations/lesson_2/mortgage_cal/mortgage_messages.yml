@@ -1,5 +1,6 @@
 
 welcome: "Welcome to Car Mortgage Calculator, Please enter your name : "
+ask_name: "Something is better than nothing"
 ask_loan_amount: "Enter the amount to be taken : "
 lower_loan_limit_msg: "Please enter amount greater than 1000"
 ask_valid_number: "Please enter a valid number"
