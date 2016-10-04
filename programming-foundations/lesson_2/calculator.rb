@@ -14,9 +14,12 @@ def messages(key, lang = 'en')
   MESSAGES[lang][key]
 end
 
-def prompt(key)
-  message = messages(key, LANGUAGE)
+def prompt(message)
   Kernel.puts("=> #{message}")
+end
+
+def get_message(key)
+  message = messages(key,LANGUAGE)
 end
 
 def valid_number?(number)
@@ -41,7 +44,7 @@ def opertor_to_message(op)
   puts "Testing case statement"
   result
 end
-prompt('welcome')
+prompt(get_message('welcome'))
 
 name = ''
 loop do
@@ -58,25 +61,25 @@ prompt("Hi #{name} !!")
 loop do # main loop
   number1 = ''
   loop do
-    prompt('first_num')
+    prompt(get_message('first_num'))
     number1 = Kernel.gets().chomp()
 
     if valid_number?(number1)
       break
     else
-      prompt('invalid_num')
+      prompt(get_message('invalid_num'))
     end
   end
 
   number2 = ''
   loop do
-    prompt('second_num')
+    prompt(get_message('second_num'))
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt('invalid_num')
+      prompt(get_message('invalid_num'))
     end
   end
   prompt_operator = <<-MSG
@@ -95,7 +98,7 @@ loop do # main loop
     if %w(1 2 3 4).include?(operation)
       break
     else
-      prompt('message_choice')
+      prompt(get_message('message_choice'))
     end
   end
 
@@ -114,9 +117,9 @@ loop do # main loop
 
   prompt("The result is #{result}")
 
-  prompt('user_input')
+  prompt(get_message('user_input'))
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
 
-prompt('thank_you')
+prompt(get_message('thank_you'))
