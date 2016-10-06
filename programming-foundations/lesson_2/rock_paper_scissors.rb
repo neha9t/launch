@@ -2,11 +2,11 @@
 require 'pry'
 
 VALID_CHOICES = %w(rock paper scissors lizard spock)
+POSITIVE_PLAY_AGAIN = %w(y yes)
 WINNING_CHOICES = {rock: ['scissors', 'lizard'], paper: %w(rock spock),
  scissors: %w(paper lizard),
   lizard: %w(spock paper),
    spock: %w(scissors rock)}
-
 @player_count = 0
 @computer_count = 0
 
@@ -15,7 +15,7 @@ def prompt(message)
 end
 
 def win?(first, second)
-  WINNING_CHOICES[first].include?(second)
+  WINNING_CHOICES[first.to_sym].include?(second)
 end
 
 def shortcut_check(choice)
@@ -43,11 +43,19 @@ def win_counter(player, computer)
 end
 
 def total_count(player_count, computer_count)
+  prompt("Your score: #{player_count} ; Computer score: #{computer_count}")
   if @player_count == 5
     prompt("You Won!!")
+    @player_count = 0
+    @computer_count = 0
+    prompt("Your score: #{player_count} ; Computer score: #{computer_count}")
   elsif @computer_count == 5
     prompt("Computer Won!")
+    @player_count = 0
+    @computer_count = 0
+    prompt("Your score: #{player_count} ; Computer score: #{computer_count}")
   end
+
 end
 
 prompt_message = <<-MSG
@@ -65,7 +73,7 @@ loop do
     prompt("Choose one: #{VALID_CHOICES.join(',')}")
 
     prompt(prompt_message)
-    choice = Kernel.gets().chomp()
+    choice = Kernel.gets().chomp().downcase()
     player_choice = shortcut_check(choice)
 
     if VALID_CHOICES.include?(player_choice)
@@ -81,8 +89,19 @@ loop do
   win_counter(player_choice, computer_choice)
 
   total_count(@player_count, @computer_count)
-
   prompt("Do you want to play again?")
-  answer = Kernel.gets().chomp()
-  break unless answer.downcase().start_with?('y')
+  answer = ''
+  loop do 
+    answer = Kernel.gets().chomp().downcase()
+    case answer
+    when 'y','yes'
+      break
+    when 'n','no'
+      prompt("Thanks for playing, GoodBye!")
+      break
+    else
+      prompt("That's a misleading response, Please choose Y or N")
+    end
+  end
+  break unless POSITIVE_PLAY_AGAIN.include?(answer)
 end
