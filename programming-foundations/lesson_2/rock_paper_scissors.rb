@@ -56,10 +56,12 @@ def display_results(score)
 end
 
 def reinitiziling_score(score)
-  if (score[:player_count] == 5) || (score[:computer_count] == 5)
-    score[:player_count] = 0
-    score[:computer_count] = 0
-  end
+  score[:player_count] = 0
+  score[:computer_count] = 0
+end
+
+def game_over?(score)
+  (score[:player_count] == 5) || (score[:computer_count] == 5)
 end
 
 prompt_message = <<-MSG
@@ -95,7 +97,7 @@ loop do
 
   display_results(score)
 
-  reinitiziling_score(score)
+  reinitialize_score(score) if game_over?(score)
 
   prompt("Do you want to play again?")
   answer = ''
