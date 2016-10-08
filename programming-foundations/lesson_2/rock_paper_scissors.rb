@@ -55,7 +55,7 @@ def display_results(score)
   end
 end
 
-def reinitiziling_score(score)
+def reinitialize_score(score)
   score[:player_count] = 0
   score[:computer_count] = 0
 end
