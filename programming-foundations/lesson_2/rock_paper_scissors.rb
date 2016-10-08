@@ -10,8 +10,6 @@ WINNING_CHOICES = {
   lizard: %w(spock paper),
   spock: %w(scissors rock)
 }
-@player_count = 0
-@computer_count = 0
 
 def prompt(message)
   Kernel.puts("=> #{message}")
@@ -31,29 +29,36 @@ def shortcut_check(choice)
   end
 end
 
-def win_counter(player, computer)
+def score_counter(player, computer, score)
   if win?(player, computer)
-    @player_count += 1
-    # puts "player : " + @player_count.to_s
+    score[:player_count] += 1
   elsif win?(computer, player)
-    @computer_count += 1
-    # puts "computer : " + @computer_count.to_s
+    score[:computer_count] += 1
   else
-    prompt("It's a tie!")
+    prompt("It was a tie")
   end
 end
 
-def total_count(player_count, computer_count)
-  prompt("Your score: #{player_count} ; Computer score: #{computer_count}")
+def display_iteration_counter(player, computer, score)
+  if win?(player, computer)
+    prompt("Player : #{score[:player_count]}")
+  elsif win?(computer, player)
+    prompt("Computer: #{score[:computer_count]}")
+  end
+end
 
-  if @player_count == 5
-    prompt("You Won!!")
-    @player_count = 0
-    @computer_count = 0
-  elsif @computer_count == 5
+def display_results(score)
+  if score[:player_count] == 5
+    prompt("You Won!")
+  elsif score[:computer_count] == 5
     prompt("Computer Won!")
-    @player_count = 0
-    @computer_count = 0
+  end
+end
+
+def reinitiziling_score(score)
+  if (score[:player_count] == 5) || (score[:computer_count] == 5)
+    score[:player_count] = 0
+    score[:computer_count] = 0
   end
 end
 
@@ -65,9 +70,10 @@ prompt_message = <<-MSG
     sp => spock
     l => lizard
     MSG
-
+score = { player_count: 0, computer_count: 0 }
 loop do
   player_choice = ''
+
   loop do
     prompt("Choose one: #{VALID_CHOICES.join(',')}")
 
@@ -84,10 +90,13 @@ loop do
 
   computer_choice = VALID_CHOICES.sample
   prompt("You chose: #{player_choice} ; Computer chose: #{computer_choice}")
+  score_counter(player_choice, computer_choice, score)
+  display_iteration_counter(player_choice, computer_choice, score)
 
-  win_counter(player_choice, computer_choice)
+  display_results(score)
 
-  total_count(@player_count, @computer_count)
+  reinitiziling_score(score)
+
   prompt("Do you want to play again?")
   answer = ''
   loop do
