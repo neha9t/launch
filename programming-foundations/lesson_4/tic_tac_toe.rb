@@ -58,10 +58,19 @@ def empty_squares(brd)
   brd.keys.select { |key| brd[key] == INITIAL_MARKER }
 end
 
+def joinor(arr, delimiter=", " , seperator= " or ")
+  *list, last = arr
+    if list.size == 0
+     puts "Choose the last square " + last.to_s
+    else
+    puts "Choose a square from #{list.join(delimiter)}" + seperator + " " + last.to_s
+  end
+end
+
 def player_places_piece!(brd)
   square = ''
   loop do
-    prompt "Choose a square from #{empty_squares(brd).join(', ')}"
+    joinor(empty_squares(brd))
     square = gets.chomp.to_i
     if empty_squares(brd).include?(square)
       break
@@ -69,7 +78,6 @@ def player_places_piece!(brd)
       prompt "Sorry that's not a valid choice"
     end
   end
-
   brd[square] = PLAYER_MARKER
 end
 
@@ -88,13 +96,9 @@ end
 
 def detect_winner(brd)
   WINNING_LINES.each do |line|
-    if brd[line[0]] == PLAYER_MARKER &&
-       brd[line[1]] == PLAYER_MARKER &&
-       brd[line[2]] == PLAYER_MARKER
+    if brd.values_at(*line).count(PLAYER_MARKER) == 3
       return 'Player'
-    elsif brd[line[0]] == COMPUTER_MARKER &&
-          brd[line[1]] == COMPUTER_MARKER &&
-          brd[line[2]] == COMPUTER_MARKER
+    elsif brd.values_at(*line).count(COMPUTER_MARKER) == 3
       return 'Computer'
     end
   end
