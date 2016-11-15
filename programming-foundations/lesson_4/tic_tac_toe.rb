@@ -17,6 +17,7 @@ including diagonals, wins. If all 9 squares are marked and no player has
 =end
 require 'pry'
 
+POSITIVE_PLAY_AGAIN = %w(y yes)
 INITIAL_MARKER = ' '.freeze
 PLAYER_MARKER = 'X'.freeze
 COMPUTER_MARKER = 'O'.freeze
@@ -105,6 +106,48 @@ def detect_winner(brd)
   nil
 end
 
+def find_at_risk_square(brd)
+  WINNING_LINES.each do |line| 
+    *first_two, last = line
+    return brd[last] if brd.values_at(*first_two).count(PLAYER_MARKER) == 2
+  end
+  prompt "#{brd[square]}"
+end
+
+def score_count(brd,score)
+  if (detect_winner(brd) == 'Player')
+    score[:player_count] += 1
+  elsif(detect_winner(brd) == 'Computer')
+    score[:computer_count] += 1
+  end
+end
+
+def display_iteration_number(brd,score)
+  if (detect_winner(brd) == 'Player')
+    prompt "Player count : #{score[:player_count]}, Computer count : #{score[:computer_count]}"
+  elsif(detect_winner(brd) == 'Computer')
+    prompt "Player count : #{score[:player_count]}, Computer count : #{score[:computer_count]}"
+  end
+end
+
+def display_winner(score)
+  if score[:player_count] == 5
+    prompt "Player is the Winner"
+  elsif score[:computer_count] == 5
+    prompt "Computer is the Winner"
+  end
+end
+
+def reinitialize_score(score)
+  score[:player_count] = 0
+  score[:computer_count] = 0
+end
+
+def game_over?(score)
+  (score[:player_count] == 5) || (score[:computer_count] == 5)
+end
+
+score = { player_count: 0, computer_count: 0 }
 loop do
   board = initialize_board
   loop do
@@ -112,19 +155,36 @@ loop do
 
     player_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
+    find_at_risk_square(board)
     computer_places_piece!(board)
     break if someone_won?(board) || board_full?(board)
   end
   display_board(board)
 
   if someone_won?(board)
-    prompt "#{detect_winner(board)} won!"
+    score_count(board,score)
+    display_iteration_number(board,score)
   else
     prompt "It was a tie"
   end
+  display_winner(score)
+  reinitialize_score(score) if game_over?(score)
+
   prompt "play again?"
-  answer = gets.chomp
-  break unless answer.downcase.start_with?('y')
+  answer = ''
+  loop do
+    answer = gets.chomp.downcase
+    case answer
+    when 'y', 'yes'
+      break
+    when 'n', 'no'
+      prompt("Thanks for playing, GoodBye!")
+      break
+    else
+      prompt("That's a misleading response, Please choose Y or N")
+    end
+  end
+  break unless POSITIVE_PLAY_AGAIN.include?(answer)
 end
 
 prompt "Thanks for playing Tic Tac Toe! Good Bye!"
